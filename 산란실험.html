@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+<html>
+    <head>
+        <title>산란실험</title>
+        <style>
+            * {
+                border: 0;
+                margin: 0;
+                padding: 0;
+            }
+            .atom {
+                width: 300px;
+                height: 300px;
+                border-radius: 50%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgb(127, 137, 140);
+                z-index: 0;
+            }
+            .nucleus {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: beige;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+            }
+            .counter {
+                font-family: Lato;
+                font-size: 50px;
+                position: relative;
+                left: 5%;
+                top: 50px;
+                color: white;
+            }
+            .line {
+                box-sizing: content-box;
+                height: 0px;
+                border-top: 1px solid rgb(240, 240, 240);
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body style="overflow: hidden; background-color: black;">
+        <p class="counter">0</p>
+        <div class="nucleus"></div>
+        <div class="atom"></div>
+    </body>
+    <!----------------------------------------------------------------------------------------------------------- -->
+    <script>
+        let randy; //랜덤y좌표
+        let copiedX; //y좌표를 통해 도출해낸 x좌표
+        let p1; 
+        let p2;
+        let count = 0;
+
+        function loop(k) {
+
+            for (let i=0; i<k; i++) {
+
+                p1 = document.createElement("p");
+                p2 = document.createElement("p");
+
+                randy = (Math.random()*300) - 150;
+                copiedX = Math.sqrt(225 - randy*randy);
+                
+                if(randy>=-15 && randy<=15) {
+
+                    p1.setAttribute("class","line");
+                    p1.setAttribute("style","position: absolute");
+                    p1.style.top = String(window.innerHeight/2 - randy) + "px";
+                    p1.style.right = String(window.innerWidth/2) + "px";
+                    document.body.appendChild(p1);
+                    //원자핵까지만 가는 반직선
+
+                    p2.setAttribute("class","line");
+                    p2.setAttribute("style","position: absolute");
+                    p2.style.top = String(window.innerHeight/2 - randy) + "px";
+                    p2.style.right = String(window.innerWidth/2 + copiedX) + "px";
+                    p2.style.transformOrigin = "right";
+                    p2.style.transform = "rotate(" + String(Math.atan(randy/copiedX)*(180/Math.PI)) + "deg)";
+                    document.body.appendChild(p2);
+                    //원자껍질에서부터 튕겨져 나가는 반직선
+
+                    count = count + 1;
+
+                } else {
+
+                    p1.setAttribute("class","line");
+                    p1.setAttribute("style","position: absolute");
+                    p1.style.top = String(window.innerHeight/2 - randy) + "px";
+                    document.body.appendChild(p1);
+                    //y좌표가 원자핵과 겹치지 않는다면 그냥 일직선 하나를 생성한다
+                }
+            }
+            let counting = document.getElementsByClassName("counter")[0];
+            counting.innerText = count;
+            //튕겨져나간 직선의 총 개수를 카운팅해준다
+        }
+
+        loop(100);
+    </script>
+</html>
