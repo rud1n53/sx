@@ -48,7 +48,7 @@ header .container{
 }
 header{
     position: fixed;
-    background-color: white;
+    background-color: rgb(228, 241, 255);
     top: 0;
     z-index: 10;
     width: 100%;
@@ -431,9 +431,11 @@ footer a:hover {
     .click:active {
         color:transparent;
         transform: scale(0.97);
+        transition: all 0s;
         background-color: rgb(110, 216, 50);
     }
     .click:active::before {
+        transition: all 0s;
         transform: translateX(120%);
     }
     .survey-button:active {
