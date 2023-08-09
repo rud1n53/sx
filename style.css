@@ -408,14 +408,14 @@ footer a:hover {
         opacity: 0.5;
         width: 40vw;
     }
-    30%{
+    50%{
         opacity: 1;
         width: 65vw;
     }
-    70%{
+    75%{
         width: 65vw;
     100%{
-        width: 60vw;
+        width: 50vw;
     }
 }
 @keyframes overflow {
